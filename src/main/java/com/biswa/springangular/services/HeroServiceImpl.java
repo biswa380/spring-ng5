@@ -36,7 +36,7 @@ public class HeroServiceImpl implements HeroService {
 		// TODO Auto-generated method stub
 		List<Hero> heroes=heroRepository.findAll();
 		List<HeroModel> heroModels = new ArrayList<HeroModel>();
-		heroes.forEach(new Consumer<Hero>() {
+/*		heroes.forEach(new Consumer<Hero>() {
 			@Override
 			public void accept(Hero hero) {
 				// TODO Auto-generated method stub
@@ -47,6 +47,15 @@ public class HeroServiceImpl implements HeroService {
 				
 				heroModels.add(heroModel);
 			}
+		});*/
+		
+		heroes.forEach(hero->{
+			HeroModel heroModel=new HeroModel();
+			heroModel.setName(hero.getName());
+			heroModel.setCounter(hero.getCounter());
+			heroModel.setPower(hero.getPower());
+			
+			heroModels.add(heroModel);
 		});
 		return heroModels;
 	}
