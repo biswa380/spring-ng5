@@ -36,7 +36,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 		// TODO Auto-generated method stub
 		clients.inMemory().withClient("my-trusted-client")
 		.authorizedGrantTypes("client_credentials", "password")
-		.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-		.resourceIds("oauth2-resource").accessTokenValiditySeconds(5000).secret("secret");
+		.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT").scopes("read","write","trust")
+		.resourceIds("oauth2-resource").accessTokenValiditySeconds(500000).secret("secret");
 	}
 }
