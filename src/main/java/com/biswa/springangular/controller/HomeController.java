@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biswa.springangular.models.HeroModel;
+import com.biswa.springangular.models.UserModel;
 import com.biswa.springangular.services.HeroService;
 
 @Controller
@@ -16,6 +17,12 @@ public class HomeController {
 	
 	@Autowired
 	private HeroService heroService;
+	
+	@RequestMapping("/login")
+	@ResponseBody
+	public String login(@RequestBody UserModel user) {
+		return "success";
+	}
 	
 	@RequestMapping("/api/saveHero")
 	@ResponseBody

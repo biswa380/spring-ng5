@@ -34,9 +34,10 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	public void configure(ClientDetailsServiceConfigurer clients)
 			throws Exception {
 		// TODO Auto-generated method stub
-		clients.inMemory().withClient("my-trusted-client")
-		.authorizedGrantTypes("client_credentials", "password")
+		clients.inMemory().withClient("biswa")
+		.authorizedGrantTypes("client_credentials", "password","refresh_token")
 		.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT").scopes("read","write","trust")
-		.resourceIds("oauth2-resource").accessTokenValiditySeconds(500000).secret("secret");
+		.resourceIds("oauth2-resource").accessTokenValiditySeconds(5000).secret("pass")
+		.refreshTokenValiditySeconds(50000);
 	}
 }
