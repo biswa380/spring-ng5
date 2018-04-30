@@ -24,7 +24,7 @@ public class SpringAngularApplication {
 	@Autowired
 	public void authenticationManager(AuthenticationManagerBuilder builder, UserRepository userrepo) throws Exception {
 		if (userrepo.count()==0)
-			userrepo.save(new com.biswa.springangular.domains.UserDetails("biswa", "pass", Arrays.asList(new Role("USER"), new Role("ACTUATOR"))));
+			userrepo.save(new com.biswa.springangular.domains.UserDetails("skaterik", "pass", Arrays.asList(new Role("USER"), new Role("ACTUATOR"))));
 		builder.userDetailsService(new UserDetailsService() {
 			@Override
 			public UserDetails loadUserByUsername(String username)

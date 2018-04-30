@@ -398,6 +398,7 @@ module.exports = "<div class=\"container color-light\" >\n  <div class=\"col\">\
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LegendsComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_service__ = __webpack_require__("./src/app/data.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -409,9 +410,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var LegendsComponent = /** @class */ (function () {
-    function LegendsComponent(http) {
+    function LegendsComponent(http, _data) {
         this.http = http;
+        this._data = _data;
         this.hero = {
             counter: null,
             id: null,
@@ -423,7 +426,7 @@ var LegendsComponent = /** @class */ (function () {
         this.getHeroList();
     };
     LegendsComponent.prototype.addHero = function () {
-        this.http.post('/api/saveHero', this.hero).subscribe(function (response) {
+        this.http.post('/api/saveHero?access_token=' + this._data.access_key.access_token, this.hero).subscribe(function (response) {
             console.log(response);
         }, function (error) {
             console.log(error);
@@ -438,7 +441,7 @@ var LegendsComponent = /** @class */ (function () {
     };
     LegendsComponent.prototype.getHeroList = function () {
         var _this = this;
-        this.http.get('/api/getHeroes').subscribe(function (res) {
+        this.http.get('/api/getHeroes?access_token=' + this._data.access_key.access_token).subscribe(function (res) {
             console.log(res);
             _this.heroes = res;
         });
@@ -449,7 +452,7 @@ var LegendsComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/legends/legends.component.html"),
             styles: [__webpack_require__("./src/app/legends/legends.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClient */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_2__data_service__["a" /* DataService */]])
     ], LegendsComponent);
     return LegendsComponent;
 }());
@@ -479,6 +482,8 @@ module.exports = "<div class=\"container color-light\">\n  <div class=\"col\">\n
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_service__ = __webpack_require__("./src/app/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -490,9 +495,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(http) {
+    function LoginComponent(http, _data, router) {
         this.http = http;
+        this._data = _data;
+        this.router = router;
         this.user = {
             username: '',
             password: ''
@@ -501,10 +510,15 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent.prototype.ngOnInit = function () {
     };
     LoginComponent.prototype.login = function () {
+        var _this = this;
         // this.http.post('login',this.user).subscribe(response=>console.log(response))
-        var reqHeader = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpHeaders */]({ authorization: 'Basic ' + btoa('biswa:pass') });
-        this.http.post('http://localhost:8080/oauth/token?grant_type=client_credentials&username=' + this.user.username + '&password=' + this.user.password, { "headers": reqHeader })
-            .subscribe(function (response) { return console.log(response); });
+        var reqHeader = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpHeaders */]({ authorization: 'Basic ' + btoa('skaterik:pass') });
+        this.http.post('http://localhost:8095/oauth/token?grant_type=client_credentials&username=' + this.user.username + '&password=' + this.user.password, { "headers": reqHeader })
+            .subscribe(function (response) {
+            console.log(response);
+            _this._data.access_key = response;
+            _this.router.navigateByUrl('legends');
+        });
     };
     LoginComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -512,7 +526,7 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/login/login.component.html"),
             styles: [__webpack_require__("./src/app/login/login.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClient */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_2__data_service__["a" /* DataService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */]])
     ], LoginComponent);
     return LoginComponent;
 }());
