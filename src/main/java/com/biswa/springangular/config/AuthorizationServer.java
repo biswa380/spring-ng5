@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -16,6 +17,7 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 
 @Configuration
 @EnableAuthorizationServer
+@EnableWebSecurity
 public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	
 	@Autowired
@@ -38,7 +40,8 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	public void configure(AuthorizationServerSecurityConfigurer security)
 			throws Exception {
 		// TODO Auto-generated method stub
-		security.checkTokenAccess("isAuthenticated()");
+		security.tokenKeyAccess("permitAll()")
+         .checkTokenAccess("isAuthenticated()");
 	}
 
 	@Override
@@ -46,9 +49,10 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 			throws Exception {
 		// TODO Auto-generated method stub
 		clients.inMemory().withClient("skaterik").secret("pass")
-		.authorizedGrantTypes("authorization_code","refresh_token","password", "client_credentials")
-		.scopes("read","write","trust")
-		.resourceIds("oauth2-resource").accessTokenValiditySeconds(120)
-		.refreshTokenValiditySeconds(200);
+		.authorizedGrantTypes("authorization_code",
+				"password", "client_credentials", "implicit", "refresh_token")
+		.scopes("read","write")
+		.accessTokenValiditySeconds(20)
+		.refreshTokenValiditySeconds(40);
 	}
 }
