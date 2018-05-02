@@ -30,13 +30,13 @@ public class AuthenticationController {
     @Value("${oauth.token:http://localhost:8081/oauth/token}")
     private String tokenUrl;
     
-	/*@RequestMapping("/login")
+	@RequestMapping("/login")
 	@ResponseBody
 	public Object login(@RequestBody UserModel user) {
 		AccessTokenRequest atr = new DefaultAccessTokenRequest();
         OAuth2RestOperations oro=new OAuth2RestTemplate(resource(user), new DefaultOAuth2ClientContext(atr));
 		return oro.getAccessToken();
-	}*/
+	}
 	
 	protected OAuth2ProtectedResourceDetails resource(UserModel user) {
     	ResourceOwnerPasswordResourceDetails resource = new ResourceOwnerPasswordResourceDetails();

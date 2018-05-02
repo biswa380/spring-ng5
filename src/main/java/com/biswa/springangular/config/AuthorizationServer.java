@@ -15,6 +15,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
+import com.biswa.springangular.repository.UserRepository;
+
 @Configuration
 @EnableAuthorizationServer
 @EnableWebSecurity
@@ -22,6 +24,9 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	
 	@Autowired
 	AuthenticationManager authenticationManager;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	@Bean
 	public TokenStore tokenStore() {
