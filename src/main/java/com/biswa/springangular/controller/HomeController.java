@@ -3,7 +3,9 @@ package com.biswa.springangular.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.client.OAuth2RestOperations;
+import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +21,6 @@ public class HomeController {
 	@Autowired
 	private HeroService heroService;
 	
-	@RequestMapping("/login")
-	@ResponseBody
-	public String login(@RequestBody UserModel user) {
-		return "success";
-	}
 	
 	@RequestMapping("/api/saveHero")
 	@ResponseBody
@@ -42,4 +39,5 @@ public class HomeController {
 	public List<HeroModel> getHeroes(){
 		return heroService.getHeroes();
 	}
+	
 }

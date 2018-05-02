@@ -484,8 +484,6 @@ module.exports = "<div class=\"container color-light\">\n  <div class=\"col\">\n
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_service__ = __webpack_require__("./src/app/data.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs__ = __webpack_require__("./node_modules/rxjs/Rx.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -499,10 +497,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var LoginComponent = /** @class */ (function () {
     function LoginComponent(http, _data, router) {
-        var _this = this;
+        // var reqHeader = new HttpHeaders({authorization:'Basic c2thdGVyaWs6cGFzcw=='});
+        // let myObservable=Observable.interval(20000);
         this.http = http;
         this._data = _data;
         this.router = router;
@@ -510,29 +508,26 @@ var LoginComponent = /** @class */ (function () {
             username: '',
             password: ''
         };
-        var reqHeader = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpHeaders */]({ authorization: 'Basic c2thdGVyaWs6cGFzcw==' });
-        var myObservable = __WEBPACK_IMPORTED_MODULE_4_rxjs__["Observable"].interval(20000);
-        myObservable.subscribe(function (x) {
-            _this.http.post('/oauth/token?grant_type=refresh_token&refresh_token=' + _this._data.access_key.refresh_token, { "headers": reqHeader })
-                .subscribe(function (response) {
-                console.log(response);
-                _this._data.access_key = response;
-            });
-        });
+        // myObservable.subscribe(x=>{
+        //   this.http.post('/oauth/token?grant_type=refresh_token&refresh_token='+this._data.access_key.refresh_token,{"headers":reqHeader})
+        //   .subscribe(response=>{
+        //     console.log(response)
+        //     this._data.access_key=response;
+        //   })
+        // })
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
     LoginComponent.prototype.login = function () {
-        // this.http.post('login',this.user).subscribe(response=>console.log(response))
+        this.http.post('login', this.user).subscribe(function (response) { return console.log(response); });
         // var reqHeader = new HttpHeaders({authorization:'Basic '+ btoa('skaterik:pass')});
-        var _this = this;
-        var reqHeader = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpHeaders */]({ authorization: 'Basic c2thdGVyaWs6cGFzcw==' });
-        this.http.post('/oauth/token?grant_type=password&username=' + this.user.username + '&password=' + this.user.password, { "headers": reqHeader })
-            .subscribe(function (response) {
-            console.log(response);
-            _this._data.access_key = response;
-            _this.router.navigateByUrl('legends');
-        });
+        // var reqHeader = new HttpHeaders({authorization:'Basic c2thdGVyaWs6cGFzcw=='});
+        // this.http.post('/oauth/token?grant_type=password&username='+this.user.username+'&password='+this.user.password,{"headers":reqHeader})
+        // .subscribe(response=>{
+        //   console.log(response)
+        //   this._data.access_key=response;
+        //   this.router.navigateByUrl('legends');
+        // })
     };
     LoginComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
