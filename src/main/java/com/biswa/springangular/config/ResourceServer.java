@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -28,7 +29,9 @@ public void configure(HttpSecurity http) throws Exception {
 	http.authorizeRequests()
 	.antMatchers("/").permitAll()
 	.antMatchers("/api/**").authenticated()
-	.and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+	.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	.and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler())
+	.and().csrf().disable();
 }
 
 /*@Autowired      // here is configuration related to spring boot basic authentication

@@ -1,7 +1,9 @@
-package com.biswa.springangular.controller;
+/*package com.biswa.springangular.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
@@ -12,9 +14,12 @@ import org.springframework.security.oauth2.client.token.AccessTokenRequest;
 import org.springframework.security.oauth2.client.token.DefaultAccessTokenRequest;
 import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biswa.springangular.models.UserModel;
@@ -56,5 +61,16 @@ public class AuthenticationController {
         return resource;
     	
     }
+	
+	@Resource(name="tokenServices")
+	ConsumerTokenServices tokenServices;
+	     
+	@RequestMapping(method = RequestMethod.POST, value = "/tokens/revoke/{tokenId:.*}")
+	@ResponseBody
+	public String revokeToken(@PathVariable String tokenId) {
+	    tokenServices.revokeToken(tokenId);
+	    return tokenId;
+	}
 
 }
+*/
