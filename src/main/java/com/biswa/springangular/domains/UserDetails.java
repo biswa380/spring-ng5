@@ -24,6 +24,8 @@ public class UserDetails {
 	    
 	    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	    private List<Role> roles;
+	    
+	    private String fullName;
 
 		public Integer getId() {
 			return id;
@@ -55,6 +57,15 @@ public class UserDetails {
 
 		public void setRoles(List<Role> roles) {
 			this.roles = roles;
+		}
+		
+
+		public String getFullName() {
+			return fullName;
+		}
+
+		public void setFullName(String fullName) {
+			this.fullName = fullName;
 		}
 
 		public UserDetails(String username, String password, List<Role> roles) {

@@ -85,6 +85,9 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients)
 			throws Exception {
+		
+		
+		
 		// TODO Auto-generated method stub
 		clients.inMemory().withClient("skaterik").secret("pass")
 		.authorizedGrantTypes("authorization_code",

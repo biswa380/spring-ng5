@@ -90,7 +90,7 @@
 							<arguments>
 								<argument>build</argument>
 								<argument>-op</argument>
-								<argument>E:\workspace-sts\spring-angular\src\main\resources\static</argument>
+								<argument>C:/Users/SDRC_DEV/git/biswa380/spring-ng5</argument>
 							</arguments>
 						</configuration>
 					</plugin>

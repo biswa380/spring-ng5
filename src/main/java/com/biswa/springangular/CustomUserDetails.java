@@ -20,7 +20,11 @@ public class CustomUserDetails implements UserDetails {
 		
 		List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
 		(byUsername.getRoles()).forEach(role->{
-			auths.add(new SimpleGrantedAuthority(role.getName().toUpperCase()));
+			(role.getRoleFeaturePermissionSchemes()).forEach(featureScheme -> {
+				auths.add(new SimpleGrantedAuthority(role.getName().toUpperCase()+":"
+						+featureScheme.getFeaturePermissionMapping().getFeature().getFeatureName()+"-"
+						+featureScheme.getFeaturePermissionMapping().getPermission().getPermissionName()));
+			});
 		});
 		this.authorities=auths;
 	}

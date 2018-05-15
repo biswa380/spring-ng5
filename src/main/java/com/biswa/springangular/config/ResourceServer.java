@@ -1,20 +1,16 @@
 package com.biswa.springangular.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableResourceServer
@@ -31,6 +27,7 @@ public void configure(HttpSecurity http) throws Exception {
 	.antMatchers("/api/**").authenticated()
 	.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	.and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler())
+	.and().cors().configurationSource(configurationSource())
 	.and().csrf().disable();
 }
 
@@ -48,17 +45,15 @@ public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception 
         .withUser("zone5").password("mypassword").roles("USER");
 }*/
 
-@Bean
-public FilterRegistrationBean corsFilter() {
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    CorsConfiguration config = new CorsConfiguration();
-    config.setAllowCredentials(true);
-    config.addAllowedOrigin("*");
-    config.addAllowedHeader("*");
-    config.addAllowedMethod("*");
-    source.registerCorsConfiguration("/**", config);
-    FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-    bean.setOrder(0);
-    return bean;
-}
+private CorsConfigurationSource configurationSource() {
+	  UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	  CorsConfiguration config = new CorsConfiguration();
+	  config.addAllowedOrigin("*");
+	  config.setAllowCredentials(true);
+	  config.addAllowedHeader("X-Requested-With");
+	  config.addAllowedHeader("Content-Type");
+	  config.addAllowedMethod(HttpMethod.POST);
+	  source.registerCorsConfiguration("/logout", config);
+	  return source;
+	}
 }
