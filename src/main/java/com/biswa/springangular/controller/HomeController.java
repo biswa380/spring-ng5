@@ -21,7 +21,7 @@ public class HomeController {
 	@Autowired
 	private HeroService heroService;
 	
-	
+	@PreAuthorize("hasAuthority('hero-edit')")
 	@RequestMapping("/api/saveHero")
 	@ResponseBody
 	public String saveHero(@RequestBody HeroModel heroModel) {
@@ -31,9 +31,10 @@ public class HomeController {
 		catch(Exception e) {
 			return "fail";
 		}
-		return "succes";
+		return "success";
 	}
 	
+	@PreAuthorize("hasAuthority('hero-view')")
 	@RequestMapping("/api/getHeroes")
 	@ResponseBody
 	public List<HeroModel> getHeroes(){

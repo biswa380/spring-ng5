@@ -5,7 +5,9 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,7 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.biswa.springangular.domains.Role;
 import com.biswa.springangular.repository.UserRepository;
 
-
+@EnableAspectJAutoProxy(proxyTargetClass=true)
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 @SpringBootApplication
 public class SpringAngularApplication {
 

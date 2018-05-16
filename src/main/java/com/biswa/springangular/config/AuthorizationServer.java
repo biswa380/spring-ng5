@@ -93,7 +93,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 		.authorizedGrantTypes("authorization_code",
 				"password", "client_credentials", "implicit", "refresh_token")
 		.scopes("read","write")
-		.accessTokenValiditySeconds(60)
-		.refreshTokenValiditySeconds(300);
+		.accessTokenValiditySeconds(300)
+		.refreshTokenValiditySeconds(3000);
 	}
 }

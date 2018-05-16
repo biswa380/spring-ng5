@@ -21,8 +21,7 @@ public class CustomUserDetails implements UserDetails {
 		List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
 		(byUsername.getRoles()).forEach(role->{
 			(role.getRoleFeaturePermissionSchemes()).forEach(featureScheme -> {
-				auths.add(new SimpleGrantedAuthority(role.getName().toUpperCase()+":"
-						+featureScheme.getFeaturePermissionMapping().getFeature().getFeatureName()+"-"
+				auths.add(new SimpleGrantedAuthority(featureScheme.getFeaturePermissionMapping().getFeature().getFeatureName()+"-"
 						+featureScheme.getFeaturePermissionMapping().getPermission().getPermissionName()));
 			});
 		});
