@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
@@ -36,7 +37,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 	
-	@Bean
+/*	@Bean
 	public JwtAccessTokenConverter tokenConverter() {
 //		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
 //		tokenConverter.setSigningKey("skaterik123");
@@ -45,24 +46,24 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 				new ClassPathResource("keystore.jks"), "skaterik123".toCharArray()).getKeyPair("selfsigned");
 		tokenConverter.setKeyPair(keyPair);
 		return tokenConverter;
-	}
-	
-	/*@Bean
-	public TokenStore tokenStore() { 
-	    return new InMemoryTokenStore(); 
 	}*/
+	
 	@Bean
 	public TokenStore tokenStore() { 
-	    return new JwtTokenStore(tokenConverter()); 
+	    return new InMemoryTokenStore(); 
 	}
+	/*@Bean
+	public TokenStore tokenStore() { 
+	    return new JwtTokenStore(tokenConverter()); 
+	}*/
 	
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints)
 			throws Exception {
 		// TODO Auto-generated method stub
 		endpoints.tokenStore(tokenStore())
-		.authenticationManager(authenticationManager)
-		.accessTokenConverter(tokenConverter());
+		.authenticationManager(authenticationManager);
+//		.accessTokenConverter(tokenConverter());
 	}
 	
 	/*@Bean
