@@ -86,7 +86,7 @@
 						</executions>
 						<configuration>
 							<executable>ng</executable>
-							<workingDirectory>E:/Angular Project/ng5</workingDirectory>
+							<workingDirectory>C:\Users\SDRC_DEV\git\biswa380\spring-ng5\src\main\resources\ng5</workingDirectory>
 							<arguments>
 								<argument>build</argument>
 								<argument>-op</argument>

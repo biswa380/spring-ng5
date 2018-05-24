@@ -36,6 +36,9 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 	
+	
+	 private AppConfig appConfig;
+	
 	@Bean
 	public JwtAccessTokenConverter tokenConverter() {
 //		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
@@ -46,6 +49,12 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 		tokenConverter.setKeyPair(keyPair);
 		return tokenConverter;
 	}
+	
+	 @Autowired
+	    public void AuthServerOAuth2Config(AuthenticationManager authenticationManager, AppConfig appConfig) {
+	        this.authenticationManager = authenticationManager;
+	        this.appConfig = appConfig;
+	    }
 	
 	/*@Bean
 	public TokenStore tokenStore() { 
@@ -60,7 +69,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints)
 			throws Exception {
 		// TODO Auto-generated method stub
-		endpoints.tokenStore(tokenStore())
+		endpoints.tokenStore(appConfig.tokenStore())
 		.authenticationManager(authenticationManager)
 		.accessTokenConverter(tokenConverter());
 	}
@@ -86,14 +95,13 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	public void configure(ClientDetailsServiceConfigurer clients)
 			throws Exception {
 		
-		
-		
+		clients.jdbc(appConfig.dataSource());
 		// TODO Auto-generated method stub
-		clients.inMemory().withClient("skaterik").secret("pass")
+		/*clients.inMemory().withClient("skaterik").secret("pass")
 		.authorizedGrantTypes("authorization_code",
 				"password", "client_credentials", "implicit", "refresh_token")
 		.scopes("read","write")
 		.accessTokenValiditySeconds(300)
-		.refreshTokenValiditySeconds(3000);
+		.refreshTokenValiditySeconds(3000);*/
 	}
 }

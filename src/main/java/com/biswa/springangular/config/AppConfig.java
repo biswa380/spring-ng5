@@ -1,4 +1,4 @@
-/*package com.biswa.springangular.config;
+package com.biswa.springangular.config;
 
 import javax.sql.DataSource;
 
@@ -41,4 +41,3 @@ public class AppConfig {
         return new JdbcTokenStore(dataSource());
     }
 }
-*/
